@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
     return (
         <div>
-            <h1>Some Title</h1>
+            <h1>Another Title</h1>
             <button onClick={() => window.location.href='/wiki/index.php'}>Go to Wiki</button>
             <button onClick={handleButtonClick}>Check Flask</button>
         </div>

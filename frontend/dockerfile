@@ -1,0 +1,12 @@
+# Use the official image as a parent image
+FROM httpd:2.4
+
+# Set the maintainer label
+LABEL maintainer="your-email@example.com"
+
+# Copy the frontend's dist folder to Apache's htdocs
+COPY dist/ /usr/local/apache2/htdocs/
+
+
+# Explicitly specify the command to run Apache in the foreground
+CMD ["httpd-foreground"]
