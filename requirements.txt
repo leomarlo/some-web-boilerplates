@@ -1,0 +1,8 @@
+Package==Version
+---------------==-------
+Flask-Cors==4.0.0
+pip==22.0.4
+psycopg2-binary==2.9.7
+python-dotenv==1.0.0
+setuptools==58.1.0
+SQLAlchemy==2.0.19

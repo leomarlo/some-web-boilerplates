@@ -2,7 +2,6 @@ import sys
 import logging
  
 sys.path.insert(0, '/var/www/backend')
-sys.path.insert(0, '/var/www/backend/.venv/lib/python3.9/site-packages/')
  
 # Set up logging
 logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
