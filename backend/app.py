@@ -6,6 +6,8 @@ from db.models import Base
 
 
 app = Flask(__name__)
+CORS(app, origins=["http://localhost:3000", "http://another.domain"])  # This will allow all origins to access your app. It's okay for development but not for production!
+
 
 # Base.metadata.create_all(bind=engine)
 

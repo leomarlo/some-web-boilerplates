@@ -7,7 +7,7 @@ services:
       context: ./backend
       dockerfile: dockerfile
     ports:
-      - "5002:80"
+      - "5000:80"
     environment:
       - FLASK_ENV=development
     depends_on:
