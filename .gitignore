@@ -38,6 +38,7 @@ Thumbs.db
 /backend/dist/
 /backend/build/
 /backend/.venv/
+*__pycache__*
 
 # Backend misc
 /backend/.env

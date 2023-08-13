@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3'
 
 services:
   backend:
@@ -7,7 +7,7 @@ services:
       context: ./backend
       dockerfile: dockerfile
     ports:
-      - "5002:80"
+      - "5000:80"
     environment:
       - FLASK_ENV=development
     depends_on:
@@ -27,27 +27,17 @@ services:
       - database
   
   database:
-    image: postgres:13
-    container_name: db
+    build: 
+      context: ./database
+      dockerfile: dockerfile
     ports:
       - "5432:5432"
     env_file:
-    - .env
+      - ./database/.env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - database/pgdata:/var/lib/postgresql/data
       # - ./path/to/your/sqldump:/docker-entrypoint-initdb.d/dump.sql
-
-  # pgadmin:
-  #   image: dpage/pgadmin4
-  #   container_name: client
-  #   ports:
-  #     - "8881:80"
-  #   env_file:
-  #   - .env
-  #   depends_on:
-  #     - database
-
-# volumes:
-#   postgres-data:
-volumes:
-  pgdata:
