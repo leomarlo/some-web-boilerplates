@@ -7,6 +7,8 @@ LABEL maintainer="your-email@example.com"
 # Copy the frontend's dist folder to Apache's htdocs
 COPY dist/ /usr/local/apache2/htdocs/
 
+# Copy the custom Apache config
+COPY frontend.conf /usr/local/apache2/conf/httpd.conf
 
 # Explicitly specify the command to run Apache in the foreground
 CMD ["httpd-foreground"]

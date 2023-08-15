@@ -27,6 +27,7 @@
   "devDependencies": {
     "@types/react": "^18.2.19",
     "@types/react-dom": "^18.2.7",
+    "dotenv-webpack": "^8.0.1",
     "prettier": "^3.0.1",
     "webpack-merge": "^5.9.0"
   }

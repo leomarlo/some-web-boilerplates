@@ -18,6 +18,8 @@ services:
     build:
       context: ./frontend
       dockerfile: dockerfile
+    env_file:
+    - ./frontend/frontend.env
     volumes:
       - ./frontend/dist:/usr/local/apache2/htdocs/
     ports:
