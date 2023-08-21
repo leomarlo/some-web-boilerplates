@@ -18,8 +18,13 @@ services:
     build:
       context: ./frontend
       dockerfile: dockerfile
+      args:
+        - DEVELOPMENT_MODE=production
+        - DOCKERIZED=dockerized
     env_file:
     - ./frontend/frontend.env
+    environment:
+      - DOCKERIZED=dockerized
     volumes:
       - ./frontend/dist:/usr/local/apache2/htdocs/
     ports:

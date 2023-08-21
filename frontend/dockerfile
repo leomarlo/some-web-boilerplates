@@ -4,6 +4,67 @@ FROM httpd:2.4
 # Set the maintainer label
 LABEL maintainer="your-email@example.com"
 
+ENV DEBIAN_FRONTEND=noninteractive
+
+ARG DEVELOPMENT_MODE
+ARG DOCKERIZED
+# Set the working directory
+WORKDIR /website
+RUN mkdir src
+
+
+# replace shell with bash so we can source files
+# RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# Install necessary utilities and yarn
+RUN apt-get update
+RUN apt-get install -y curl 
+RUN apt-get install -y gnupg 
+RUN apt-get install -y apt-transport-https
+RUN apt-get install -y apt-utils wget unzip
+
+RUN apt-get -y autoclean
+# RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - 
+# RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list 
+RUN apt-get update
+# RUN curl -sL https://deb.nodesource.com/setup | bash - 
+# RUN apt-get install -yq nodejs
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && \ 
+    apt-get install -y nodejs
+# RUN apt-get install -y npm 
+RUN npm install -g yarn 
+# RUN apt-get install -y npm 
+# fix npm - not the latest version installed by apt-get
+# RUN npm install -g npm
+# RUN npm install -g yarn
+RUN apt-get clean 
+RUN rm -rf /var/lib/apt/lists/*
+
+
+# RUN echo /etc/os-release
+
+# copy src to src
+COPY src/ src/
+# copy package.json to website
+COPY package.json .
+
+# copy tsconfig.json to website
+COPY tsconfig.json .
+
+# copy all webpack files to website
+COPY webpack.common.js .
+COPY webpack.prod.js .
+COPY webpack.dev.js .
+
+# copy yarn.lock to website
+COPY yarn.lock .
+
+# run yarn install
+RUN yarn install
+
+# run yarn build:prod if DEVELOPMENT_MODE is set to production, otherwise run yarn build:dev
+RUN if [ "$DEVELOPMENT_MODE" = "production" ] ; then yarn build:prod ; else yarn build:dev ; fi 
+
 # Copy the frontend's dist folder to Apache's htdocs
 COPY dist/ /usr/local/apache2/htdocs/
 
