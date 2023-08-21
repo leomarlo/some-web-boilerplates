@@ -11,6 +11,10 @@ Thumbs.db
 .idea/
 .vscode/
 
+# custom
+
+*__deprecated__*
+
 # Frontend (React & Node)
 /frontend/node_modules/
 /frontend/.next/
