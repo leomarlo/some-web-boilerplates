@@ -19,16 +19,15 @@ services:
       context: ./frontend
       dockerfile: dockerfile
       args:
-        - DEVELOPMENT_MODE=production
-        - DOCKERIZED=dockerized
-    env_file:
-    - ./frontend/frontend.env
-    environment:
-      - DOCKERIZED=dockerized
-    volumes:
-      - ./frontend/dist:/usr/local/apache2/htdocs/
+        - REACT_APP_DEVELOPMENT_MODE=development
+        - REACT_APP_DOCKERIZED=dockerized
+    # environment:
+    #   - REACT_APP_DEVELOPMENT_MODE=development
+    #   - REACT_APP_DOCKERIZED=dockerized
+    # volumes:
+    #   - ./frontend/dist:/usr/local/apache2/htdocs/
     ports:
-      - "3000:80"
+      - "3001:80"
     depends_on:
       - backend
       - database

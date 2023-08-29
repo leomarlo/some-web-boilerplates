@@ -6,8 +6,12 @@ LABEL maintainer="your-email@example.com"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ARG DEVELOPMENT_MODE
-ARG DOCKERIZED
+ARG REACT_APP_DEVELOPMENT_MODE
+ARG REACT_APP_DOCKERIZED
+
+# Then, set them as environment variables so they are available during the build
+ENV REACT_APP_DEVELOPMENT_MODE=$REACT_APP_DEVELOPMENT_MODE
+ENV REACT_APP_DOCKERIZED=$REACT_APP_DOCKERIZED
 # Set the working directory
 WORKDIR /website
 RUN mkdir src
@@ -63,13 +67,23 @@ COPY yarn.lock .
 RUN yarn install
 
 # run yarn build:prod if DEVELOPMENT_MODE is set to production, otherwise run yarn build:dev
-RUN if [ "$DEVELOPMENT_MODE" = "production" ] ; then yarn build:prod ; else yarn build:dev ; fi 
+RUN if [ "$REACT_APP_DEVELOPMENT_MODE" = "production" ] ; then yarn build:prod ; else yarn build:dev ; fi 
+# RUN yarn build:dev
 
 # Copy the frontend's dist folder to Apache's htdocs
-COPY dist/ /usr/local/apache2/htdocs/
+# RUN cp -r dist/* /usr/local/apache2/htdocs/
+
+# RUN cp /usr/local/apache2/htdocs/index.html /usr/local/apache2/htdocs/index-2.html
+# COPY dummyindex.html /usr/local/apache2/htdocs/index.html
 
 # Copy the custom Apache config
 COPY frontend.conf /usr/local/apache2/conf/httpd.conf
+
+# RUN cp /usr/local/apache2/htdocs/index-2.html /usr/local/apache2/htdocs/index.html
+RUN cp -r dist/* /usr/local/apache2/htdocs/
+
+RUN echo "REACT_APP_DEVELOPMENT_MODE=$REACT_APP_DEVELOPMENT_MODE" > /website/src/env-check.txt
+
 
 # Explicitly specify the command to run Apache in the foreground
 CMD ["httpd-foreground"]
