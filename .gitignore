@@ -49,3 +49,7 @@ docker-copies
 /backend/.env
 /backend/.flaskenv
 /backend/instance/
+
+
+# global
+.env
