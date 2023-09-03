@@ -1,43 +1,38 @@
-version: '3'
+version: '3.7'
 
 services:
-  backend:
-    container_name: backend
-    build:
-      context: ./backend
-      dockerfile: dockerfile
-    ports:
-      - "5000:80"
-    environment:
-      - FLASK_ENV=development
-    depends_on:
-      - database
+  # backend:
+  #   container_name: backend
+  #   build:
+  #     context: ./backend
+  #     dockerfile: dockerfile
+  #   ports:
+  #     - "5000:80"
+  #   environment:
+  #     - FLASK_ENV=development
+  #   depends_on:
+  #     - database
 
-  frontend:
-    container_name: frontend
-    build:
-      context: ./frontend
-      dockerfile: dockerfile
-    volumes:
-      - ./frontend/dist:/usr/local/apache2/htdocs/
-    ports:
-      - "3000:80"
-    depends_on:
-      - backend
-      - database
+  # frontend:
+  #   container_name: frontend
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: dockerfile
+  #   volumes:
+  #     - ./frontend/dist:/usr/local/apache2/htdocs/
+  #   ports:
+  #     - "3000:80"
+  #   depends_on:
+  #     - backend
+  #     - database
   
   database:
-    build: 
-      context: ./database
-      dockerfile: dockerfile
+    image: postgres:13
+    container_name: db
     ports:
       - "5432:5432"
     env_file:
-      - ./database/.env
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-    volumes:
-      - database/pgdata:/var/lib/postgresql/data
+    - .env
+    # volumes:
+    #   - database/pgdata:/var/lib/postgresql/data
       # - ./path/to/your/sqldump:/docker-entrypoint-initdb.d/dump.sql
