@@ -11,7 +11,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String, unique=True, nullable=False)
     password = Column(String, nullable=False)  # Ensure this is hashed!
-    comments = relationship('Comment', back_populates='user')
+    # comments = relationship('Comment', back_populates='user')
 
 class Comment(Base):
     __tablename__ = 'comments'
@@ -19,14 +19,14 @@ class Comment(Base):
     id = Column(Integer, primary_key=True)
     content = Column(Text, nullable=False)
     timestamp = Column(DateTime, default=datetime.utcnow)
-    user_id = Column(Integer, ForeignKey('users.id'))
-    user = relationship('User', back_populates='comments')
+    # user_id = Column(Integer, ForeignKey('users.id'))
+    # user = relationship('User', back_populates='comments')
 
     # Foreign keys for each entity
-    publication_id = Column(Integer, ForeignKey('publications.id'))
-    artwork_id = Column(Integer, ForeignKey('artworks.id'))
-    exhibition_id = Column(Integer, ForeignKey('exhibitions.id'))
-    blogpost_id = Column(Integer, ForeignKey('blogposts.id'))
+    # publication_id = Column(Integer, ForeignKey('publications.id'))
+    # artwork_id = Column(Integer, ForeignKey('artworks.id'))
+    # exhibition_id = Column(Integer, ForeignKey('exhibitions.id'))
+    # blogpost_id = Column(Integer, ForeignKey('blogposts.id'))
 
 class Publication(Base):
     __tablename__ = 'publications'
@@ -36,7 +36,7 @@ class Publication(Base):
     authors = Column(String)
     journal = Column(String)
     year = Column(Integer)
-    comments = relationship('Comment', back_populates='publication')
+    # comments = relationship('Comment', back_populates='publication')
 
 class Artwork(Base):
     __tablename__ = 'artworks'
@@ -45,7 +45,7 @@ class Artwork(Base):
     title = Column(String, nullable=False)
     medium = Column(String)
     year = Column(Integer)
-    comments = relationship('Comment', back_populates='artwork')
+    # comments = relationship('Comment', back_populates='artwork')
 
 class Exhibition(Base):
     __tablename__ = 'exhibitions'
@@ -54,7 +54,7 @@ class Exhibition(Base):
     title = Column(String, nullable=False)
     location = Column(String)
     year = Column(Integer)
-    comments = relationship('Comment', back_populates='exhibition')
+    # comments = relationship('Comment', back_populates='exhibition')
 
 class BlogPost(Base):
     __tablename__ = 'blogposts'
@@ -64,7 +64,7 @@ class BlogPost(Base):
     content = Column(Text)
     link = Column(String)  # If it's external
     date_posted = Column(DateTime, default=datetime.utcnow)
-    comments = relationship('Comment', back_populates='blogpost')
+    # comments = relationship('Comment', back_populates='blogpost')
 
 class CV(Base):
     __tablename__ = 'cv'
