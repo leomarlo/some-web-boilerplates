@@ -7,11 +7,16 @@ import { BACKEND_URL, DOCKER_MODE, DEVELOPMENT_MODE, REVERSE_PROXY } from './uti
 const App: React.FC = () => {
 
   const informationButtonClick = async () => {
-    // store the information from the ./utils/global.ts (BACKEND_URL, DOCKER_MODE, DEVELOPMENT_MODE, REVERSE_PROXY) in a text variable called alertText
-    // const alertText = `DEVELOPMENT_MODE: ${DEVELOPMENT_MODE.toString()}\nDOCKER_MODE: ${DOCKER_MODE.toString()}\nREVERSE_PROXY: ${REVERSE_PROXY.toString()}\nBACKEND_URL: ${BACKEND_URL}`;
-
-    // const moreText = `DEVELPMENT_MODE: ${process.env.REACT_APP_DEVELOPMENT_MODE.toString()}\nDockerized: ${process.env.REACT_APP_DOCKERIZED.toString()}`
-    alert(process.env.REACT_APP_DEVELOPMENT_MODE);
+    let devMode = process.env.REACT_APP_DEVELOPMENT_MODE;
+    if (devMode === undefined) {
+      alert('Local development environment');
+    } else if (devMode === 'development') {
+      alert('Dockerized development environment set up');
+    } else if (devMode === 'production') {
+      alert('Production environment');
+    } else {
+      alert('Unknown environment');
+    }
   }
 
   const handleButtonClick = async () => {
