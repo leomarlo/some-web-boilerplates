@@ -15,7 +15,7 @@ if [ "$1" == "--local" ]; then
     echo "--> Starting frontend react server"
     cd ../frontend
     # yarn start:dev-open 
-    yarn start:next:dev
+    yarn start:next:dev:port
     # done  
     echo "--> Done"
 elif [ "$1" == "--development" ]; then
