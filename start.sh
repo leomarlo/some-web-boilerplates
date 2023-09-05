@@ -5,6 +5,7 @@
 if [ "$1" == "--local" ]; then
     echo "--> Starting local development environment"
     docker-compose -f docker-compose-only-db.yml up -d
+    sleep 3
     ## start backend
     echo "--> Starting backend flask server"
     cd backend
@@ -13,7 +14,8 @@ if [ "$1" == "--local" ]; then
     ## start frontend
     echo "--> Starting frontend react server"
     cd ../frontend
-    yarn start:dev-open 
+    # yarn start:dev-open 
+    yarn start:next:dev
     # done  
     echo "--> Done"
 elif [ "$1" == "--development" ]; then
