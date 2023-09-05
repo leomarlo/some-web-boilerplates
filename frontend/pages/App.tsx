@@ -42,18 +42,18 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Another Title!</h1>
-      <button onClick={() => (window.location.href = '/wiki/index.php')}>
-        Go to Wiki
-      </button>
-      <br />
-      <button onClick={handleButtonClick}>Check Flask..!!</button>
-      <br />
-      <button onClick={informationButtonClick}>Some Info</button>
-      <br />
-      <Article />
-
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="p-5 text-black text-center">
+        <div>
+          Coming Soon
+        </div>
+        <div>
+          <button className="btn btn-primary mx-2 my-2" onClick={handleButtonClick}>Ping Backend</button>
+        </div>
+        <div>
+          <button className="btn btn-primary btn-constant-width mx-2 my-2" onClick={informationButtonClick}>Information</button>
+        </div>
+      </div>
     </div>
   );
 };
