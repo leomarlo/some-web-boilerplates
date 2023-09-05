@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Article from './content/Article';
-import { BACKEND_URL, DOCKER_MODE, DEVELOPMENT_MODE, REVERSE_PROXY } from './utils/global';
+import { BACKEND_URL, DOCKER_MODE, DEVELOPMENT_MODE, REVERSE_PROXY } from '../utils/global';
 
 const App: React.FC = () => {
 

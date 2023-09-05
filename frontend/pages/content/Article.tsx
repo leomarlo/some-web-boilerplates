@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BACKEND_URL } from '../utils/global';
+import { BACKEND_URL } from '../../utils/global';
 
 function Article() {
   const [article, setArticle] = useState('');
