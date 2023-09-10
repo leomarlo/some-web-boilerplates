@@ -48,7 +48,8 @@ RUN rm -rf /var/lib/apt/lists/*
 # RUN echo /etc/os-release
 
 # copy src to src
-COPY src/ src/
+COPY utils/ utils/
+COPY pages/ pages/
 # copy package.json to website
 COPY package.json .
 
@@ -56,9 +57,8 @@ COPY package.json .
 COPY tsconfig.json .
 
 # copy all webpack files to website
-COPY webpack.common.js .
-COPY webpack.prod.js .
-COPY webpack.dev.js .
+COPY next.config.js .
+COPY next-env.d.ts .
 
 # copy yarn.lock to website
 COPY yarn.lock .
@@ -67,7 +67,9 @@ COPY yarn.lock .
 RUN yarn install
 
 # run yarn build:prod if DEVELOPMENT_MODE is set to production, otherwise run yarn build:dev
-RUN if [ "$REACT_APP_DEVELOPMENT_MODE" = "production" ] ; then yarn build:prod ; else yarn build:dev ; fi 
+# RUN if [ "$REACT_APP_DEVELOPMENT_MODE" = "production" ] ; then yarn build:next:dev ; else yarn build:next:dev ; fi 
+RUN yarn build:next:dev
+RUN yarn next:export
 # RUN yarn build:dev
 
 # Copy the frontend's dist folder to Apache's htdocs
@@ -80,9 +82,10 @@ RUN if [ "$REACT_APP_DEVELOPMENT_MODE" = "production" ] ; then yarn build:prod ;
 COPY frontend.conf /usr/local/apache2/conf/httpd.conf
 
 # RUN cp /usr/local/apache2/htdocs/index-2.html /usr/local/apache2/htdocs/index.html
-RUN cp -r dist/* /usr/local/apache2/htdocs/
+# RUN cp -r dist/* /usr/local/apache2/htdocs/
 
-RUN echo "REACT_APP_DEVELOPMENT_MODE=$REACT_APP_DEVELOPMENT_MODE" > /website/src/env-check.txt
+RUN cp -r out/* /usr/local/apache2/htdocs/
+RUN cp /usr/local/apache2/htdocs/App.html /usr/local/apache2/htdocs/index.html
 
 
 # Explicitly specify the command to run Apache in the foreground

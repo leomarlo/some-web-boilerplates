@@ -23,6 +23,7 @@ docker-copies
 /frontend/.next/
 /frontend/.cache/
 /frontend/build/
+/frontend/out/
 /frontend/dist/
 /frontend/public/assets/
 
